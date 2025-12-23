@@ -19,15 +19,11 @@ def get_downloads(pkg):
 
     data = r.json()
 
-    downloads = data.get("downloads", {})
-    last_30_days = downloads.get("last30Days")
-
-    if last_30_days is None:
+    try:
+        downloads_30d = data["score"]["downloadCount30Days"]
+        return f"{downloads_30d:,} downloads (last 30 days)"
+    except KeyError:
         return "N/A"
-
-    return f"{last_30_days:,} downloads (last 30 days)"
-
-
 
 def send_message(message):
     url = f"https://discord.com/api/v10/channels/{CHANNEL_ID}/messages"

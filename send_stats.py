@@ -11,7 +11,7 @@ PACKAGES = [
 ]
 
 def get_downloads(pkg):
-    url = f"https://pub.dev/api/packages/{pkg}"
+    url = f"https://pub.dev/api/packages/{pkg}/metrics"
     r = requests.get(url, timeout=15)
 
     if r.status_code != 200:
@@ -26,6 +26,7 @@ def get_downloads(pkg):
         return "N/A"
 
     return f"{last_30_days:,} downloads (last 30 days)"
+
 
 
 def send_message(message):

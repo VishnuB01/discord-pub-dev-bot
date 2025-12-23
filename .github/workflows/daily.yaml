@@ -2,7 +2,7 @@ name: Daily pub.dev stats
 
 on:
   schedule:
-    - cron: "0 6 * * *" # Runs daily at 6 AM UTC
+    - cron: "30 4 * * *"   # 10:00 AM IST
   workflow_dispatch:
 
 jobs:

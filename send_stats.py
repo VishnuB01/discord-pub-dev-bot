@@ -12,10 +12,21 @@ PACKAGES = [
 
 def get_downloads(pkg):
     url = f"https://pub.dev/packages/{pkg}"
-    r = requests.get(url, timeout=10)
+    r = requests.get(
+        url,
+        timeout=15,
+        headers={"User-Agent": "Mozilla/5.0"}
+    )
+
     soup = BeautifulSoup(r.text, "html.parser")
-    stat = soup.find("div", class_="detail-header-metadata")
-    return stat.get_text(strip=True) if stat else "N/A"
+
+    for item in soup.select("section.package-metadata div"):
+        text = item.get_text(" ", strip=True).lower()
+        if "downloads" in text and "last" in text:
+            return item.get_text(" ", strip=True)
+
+    return "N/A"
+
 
 def send_message(message):
     url = f"https://discord.com/api/v10/channels/{CHANNEL_ID}/messages"

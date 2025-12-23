@@ -1,5 +1,8 @@
 name: Daily pub.dev stats
 
+permissions:
+  contents: write
+
 on:
   schedule:
     - cron: "30 4 * * *"   # 10:00 AM IST

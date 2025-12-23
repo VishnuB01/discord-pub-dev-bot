@@ -11,21 +11,21 @@ PACKAGES = [
 ]
 
 def get_downloads(pkg):
-    url = f"https://pub.dev/packages/{pkg}"
-    r = requests.get(
-        url,
-        timeout=15,
-        headers={"User-Agent": "Mozilla/5.0"}
-    )
+    url = f"https://pub.dev/api/packages/{pkg}"
+    r = requests.get(url, timeout=15)
 
-    soup = BeautifulSoup(r.text, "html.parser")
+    if r.status_code != 200:
+        return "N/A"
 
-    for item in soup.select("section.package-metadata div"):
-        text = item.get_text(" ", strip=True).lower()
-        if "downloads" in text and "last" in text:
-            return item.get_text(" ", strip=True)
+    data = r.json()
 
-    return "N/A"
+    downloads = data.get("downloads", {})
+    last_30_days = downloads.get("last30Days")
+
+    if last_30_days is None:
+        return "N/A"
+
+    return f"{last_30_days:,} downloads (last 30 days)"
 
 
 def send_message(message):

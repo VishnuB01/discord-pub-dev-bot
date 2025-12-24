@@ -5,7 +5,7 @@ permissions:
 
 on:
   schedule:
-    - cron: "30 4 * * *"   # 10:00 AM IST
+    - cron: "*/5 * * * *"   # 10:00 AM IST
   workflow_dispatch:
 
 jobs:

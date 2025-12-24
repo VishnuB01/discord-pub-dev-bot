@@ -2,11 +2,16 @@ name: Cron test
 
 on:
   schedule:
-    - cron: "*/2 * * * *"
-  workflow_dispatch:
+    # The shortest interval is every 5 minutes. Times are in UTC.
+    - cron: '*/5 * * * *'
 
 jobs:
-  test:
+  five-min-job:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "Cron is working"
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Perform a task
+        run: |
+          echo "This workflow runs every 5 minutes."
+          # Add the commands for your task here

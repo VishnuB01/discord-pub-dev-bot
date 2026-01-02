@@ -1,10 +1,10 @@
 name: Cron test
 
-on:
-  schedule:
-    # The shortest interval is every 5 minutes. Times are in UTC.
-    - cron: '*/5 * * * *'
-  workflow_dispatch:
+# on:
+#   schedule:
+#     # The shortest interval is every 5 minutes. Times are in UTC.
+#     - cron: '*/5 * * * *'
+#   workflow_dispatch:
 
 jobs:
   five-min-job:
